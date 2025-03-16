@@ -1,0 +1,12 @@
+/AlignBench/venv
+/AlignBench/data
+/AlignBench/.idea
+/AlignBench/run.sh
+
+
+/LiveBench/venv
+/LiveBench/data
+/LiveBench/.idea
+/LiveBench/run.sh
+/LiveBench/*.csv
+/LiveBench/livebench/data*

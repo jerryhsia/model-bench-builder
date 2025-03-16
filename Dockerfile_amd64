@@ -1,0 +1,37 @@
+FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/python:3.10.12
+
+USER root
+
+# AlignBench start
+
+COPY AlignBench/ /root/AlignBench/
+
+WORKDIR /root/AlignBench
+
+RUN mkdir data && python3 -m venv venv && . venv/bin/activate && \
+    pip3 install -r requirements.txt -i https://mirrors.huaweicloud.com/repository/pypi/simple --no-cache-dir
+
+# AlignBench end
+
+# --------------------------------------------------------------
+
+# LiveBench start
+COPY LiveBench/ /root/LiveBench/
+
+WORKDIR /root/LiveBench
+
+COPY nltk_data/ /root/nltk_data/
+COPY huggingface/ /root/.cache/huggingface/
+
+RUN mkdir data && python3 -m venv venv && . venv/bin/activate && \
+    pip3 install torch --index-url https://download.pytorch.org/whl/cpu --no-cache-dir && \
+    pip3 install -r requirements.txt -i https://mirrors.huaweicloud.com/repository/pypi/simple --no-cache-dir
+
+# LiveBench end
+
+RUN sed -i 's/deb.debian.org/mirrors.huaweicloud.com/g' /etc/apt/sources.list.d/debian.sources && \
+    uname -a && apt-get update && apt-get install -y vim && apt-get purge && apt-get clean
+
+WORKDIR /root
+
+CMD ["tail", "-f", "/etc/hosts"]

@@ -5,6 +5,15 @@
 - [https://github.com/jerryhsia/AlignBench](https://github.com/jerryhsia/AlignBench)
 - [https://github.com/jerryhsia/LiveBench](https://github.com/jerryhsia/LiveBench)
 
+# 构建镜像
+
+```bash
+git clone https://github.com/jerryhsia/AlignBench
+git clone https://github.com/jerryhsia/LiveBench
+
+docker build --progress=plain -f Dockerfile_amd64 -t jerry9916/modelbench:amd64 .
+```
+
 # 使用方法
 
 ```bash
